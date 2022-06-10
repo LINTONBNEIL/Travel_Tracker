@@ -2,7 +2,7 @@ import chai from 'chai';
 const expect = chai.expect;
 import { travelers } from './test-file.js'
 import TravelerRepository from '../src/TravelerRepository.js';
-import Traveler from '../src/TravelerRepository';
+import Traveler from '../src/Traveler.js';
 
 
 describe('TravelerRepository', () => {
