@@ -5,10 +5,8 @@ import DestinationRepo from '../src/DestinationRepo.js'
 import Destination from '../src/Destination.js'
 
 describe('DestinationsRepo', () => {
-  let destination = null;
   let destinationRepo = null;
     beforeEach(() => {
-      destination = new Destination(destinations[0]);
       destinationRepo = new DestinationRepo(destinations);
     });
 
@@ -22,13 +20,9 @@ describe('DestinationsRepo', () => {
       expect(destinationRepo.destinationData).to.deep.equal(destinations);
     });
 
-    it('should not hold the trips', () => {
-
-      expect(destination.destinationData).to.not.equal(trips)
-    });
 
     it('should have a method to find the destination data by id', () => {
 
-      expect(destinationRepo.findDestination(2).to.deep.equal(destination))
+      expect(destinationRepo.findDestination(1)).to.equal(destinations[0])
     });
 });
