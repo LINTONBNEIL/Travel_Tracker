@@ -8,15 +8,9 @@ import Traveler from '../src/Traveler.js'
 import Trips from '../src/Trips.js'
 
 describe('Trips', () => {
-  let traveler = null;
-  let destination = null;
-  let trips = null;
-  let trip = null;
+  let tripsRepo = null;
     beforeEach(() => {
-      traveler = new Traveler(travelers[0])
-      destination = new Destination(destinations[0])
-      trips = new Trips(trips)
-      trip = new Trips(trips[0])
+      tripsRepo = new Trips(trips)
     });
 
     it('should be a function', () => {
@@ -26,21 +20,22 @@ describe('Trips', () => {
 
     it('should hold trips data', () => {
 
-      expect(trips.tripsData).to.deep.equal(trips);
+      expect(tripsRepo.tripsData).to.deep.equal(trips);
     });
 
     it('should be able to find a specific trip by id', () => {
 
-      expect(trips.findTrip(1)).to.equal(trip);
+      expect(tripsRepo.findTrip(1)).to.equal(trips[0]);
     });
 
-    it('should be able to find all trips by traveler id', () => {
 
-      expect(trips.findTripByTraveler(1)).to.equal(trip);
-    });
+    it('should be able to find all trips by a traveler id', () => {
 
-    it('should be able to find trip by destination id', () => {
+      expect(tripsRepo.findAllTravelerTrip(1)).to.deep.equal([trips[0]])
+    })
 
-      expect(trips.findTripByDestination(1).to.equal(trips));
-    });
+    it('should be able to find all trips by a destination', () => {
+
+      expect(tripsRepo.findAllTripDestination(1)).to.deep.equal([trips[0]])
+    })
 });
