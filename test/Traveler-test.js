@@ -1,13 +1,13 @@
 import chai from 'chai';
 const expect = chai.expect;
 import { travelers } from './test-file.js'
-import Traveler from '../src/Traveler';
+import Traveler from '../src/Traveler.js';
 
 
 describe('Traveler', () => {
   let traveler = null;
     beforeEach(() => {
-    traveler = new Traveler(travelers[0]);
+      traveler = new Traveler(travelers[0]);
     })
 
   it('should be a function', function () {
@@ -15,7 +15,7 @@ describe('Traveler', () => {
     expect(Traveler).to.be.a('function');
   });
 
-  it('should be an instance of User', function () {
+  it('should be an instance of Traveler', function () {
 
     expect(traveler).to.be.an.instanceof(Traveler);
   });
