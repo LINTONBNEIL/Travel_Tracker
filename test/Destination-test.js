@@ -7,7 +7,7 @@ import Destination from '../src/Destination.js'
 describe('Destination', () => {
   let destination = null;
   beforeEach(() => {
-    destiantion = new Destination(destination[0]);
+    destination = new Destination(destinations[0]);
   });
 
   it('should be a function', function () {
