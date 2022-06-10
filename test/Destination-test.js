@@ -32,31 +32,41 @@ describe('Destination', () => {
 
   it('should have a unique destination', () => {
 
-    expect(destination.destination).to.equal("Lima, Peru")
+    expect(destination.name).to.equal("Lima, Peru")
   });
 
   it('/s destination should be a string', () => {
 
-    expect(destination.destination).to.be.a('string')
+    expect(destination.name).to.be.a('string')
   });
 
   it('should have an estimated cost per day', () => {
 
-    expect(destination.estimatedLodgingCostPerDay).to.equal(70)
+    expect(destination.lodgingCost).to.equal(70)
   });
 
   it('should not have a string for a lodging cost', () => {
 
-    expect(destination.estimatedLodgingCostPerDay).to.not.be.a('string')
+    expect(destination.lodgingCost).to.not.be.a('string')
   })
 
   it('should have an estimated flight cost per person', () => {
 
-    expect(destination.estimatedFlightCostPerPerson).to.equal(400)
+    expect(destination.flightCost).to.equal(400)
   });
 
   it('/s flight cost per person', () => {
 
-    expect(destination.estimatedFlightCostPerPerson).to.not.be.a('string')
+    expect(destination.flightCost).to.not.be.a('string')
   })
+
+  it('should have an image', () => {
+
+    expect(destination.image).to.equal('https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80');
+  });
+
+  it('should have an alt', () => {
+
+    expect(destination.alt).to.equal('overview of city buildings with a clear sky');
+  });
 });
