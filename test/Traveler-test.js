@@ -1,15 +1,14 @@
-import { chai } from 'chai';
+import chai from 'chai';
+const expect = chai.expect;
+import { travelers } from './test-file.js'
 import Traveler from '../src/Traveler';
 
 
 describe('Traveler', () => {
   let traveler = null;
-    beforeEach(() => {user = new Traveler({
-      "id":1,
-      "name":"Ham Leadbeater",
-      "travelerType":"relaxer"
-    });
-
+    beforeEach(() => {
+    traveler = new Traveler(travelers[0]);
+    })
 
   it('should be a function', function () {
 
@@ -49,6 +48,5 @@ describe('Traveler', () => {
   it('/s type should be a string', () => {
 
     expect(traveler.travelerType).to.be.a('string');
-  });
   });
 });
