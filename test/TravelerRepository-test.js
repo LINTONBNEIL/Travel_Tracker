@@ -17,7 +17,7 @@ describe('TravelerRepository', () => {
 
   it('should be a function', () => {
 
-    expect(TravelerRepository).to.be.a('function')
+    expect(TravelerRepository).to.be.a('function');
   });
 
   it('should hold travelers data', () => {
