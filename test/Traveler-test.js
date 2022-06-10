@@ -37,7 +37,7 @@ describe('Traveler', () => {
 
   it('/s name should always be a string', () => {
 
-    expect(travler.name).to.be.a('string');
+    expect(traveler.name).to.be.a('string');
   });
 
   it('should have a specific personality type', () => {
