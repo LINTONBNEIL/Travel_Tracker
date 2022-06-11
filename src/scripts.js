@@ -101,13 +101,11 @@ const findYearlySpent = (travelersTrips) => {
 const findPresentTrips = (travelersTrips) => {
 return travelersTrips.find(trip => {
   if (trip.date > date) {
-    console.log('upcoming', trip)
+    //another function that handles upcoming vs pending
     displayUpcomingTrips(travelersTrips)
   } else if (trip.date === date) {
-    console.log("present", trip)
     displayPresentTrips(travelersTrips)
   } else {
-    console.log('past', trip)
     displayPastTrips(travelersTrips)
   }
 })
