@@ -16,7 +16,7 @@ class TripsRepo {
 
   findAllTripDestination(id) {
     return this.tripsData.filter(trip => {
-      return trip.destinationID === id
+      return trip.destination === id
     })
   }
 }

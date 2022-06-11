@@ -32,7 +32,7 @@ describe('Trip', () => {
 
   it('should have a destination id', () => {
 
-    expect(trip.destinationID).to.equal(1);
+    expect(trip.destination).to.equal(1);
   });
 
   it('should have a total amount of travelers', () => {

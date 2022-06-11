@@ -70,18 +70,18 @@ const createTrips = (tripData) => {
   tripsArray = tripsData.map(trip => new Trip(trip));
   tripsRepo = new TripsRepo(tripsArray)
   findTravelerTrips(tripsRepo)
-  setTripsDestination()
 };
 
 const findTravelerTrips = (tripsRepo) => {
   travelersTrips = tripsRepo.findAllTravelerTrip(randomTraveler.id)
+  setTripsDestination()
   findPresentTrips(travelersTrips)
 }
 
 const setTripsDestination = () => {
   travelersTrips.forEach(trip => {
-  let destinationObj = destinationRepo.findDestination(trip.destinationID);
-  trip.destinationID = destinationObj;
+  let destinationObj = destinationRepo.findDestination(trip.destination);
+  trip.destination = destinationObj;
 });
 }
 
@@ -89,8 +89,9 @@ const findPresentTrips = (travelersTrips) => {
 return travelersTrips.find(trip => {
     if (trip.date > date) {
       console.log("present", trip)
+    displayPresentTrips(travelersTrips)
     }
-    console.log('past', trip)
+    // console.log('past', trip)
     displayPastTrips(travelersTrips)
   })
 }
@@ -109,15 +110,38 @@ const displayPastTrips = (travelersTrips) => {
   let pastTripCard = ''
   travelersTrips.forEach(trip => {
     pastTripCard += `
-    <div class="traveler-card">
-      <image class="picture">Destination Picture</image>
-      <p>Destination Name</p>
-      <p>Destination Cost lodging/flight</p>
-      <p>${trip.date}</p>
-      <p>${trip.duration}</p>
-      <p>${trip.travelers}</p>
-    </div>
+    <article class="traveler-card">
+    <h2>${trip.destination.name}</h2>
+    <image class="picture" src=${trip.destination.image}></image>
+      <ul>
+        <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
+        <li>Flight Cost: ${trip.destination.flightCost}</li>
+        <li>Date: ${trip.date}</li>
+        <li>Duration: ${trip.duration}</li>
+        <li>Travelers: ${trip.travelers}</li>
+      </ul>
+    </article>
     `
   })
   pastBox.innerHTML = pastTripCard
+}
+
+const displayPresentTrips = () => {
+  let presentTripCard = ''
+  travelersTrips.forEach(trip => {
+    presentTripCard += `
+    <article class="traveler-card">
+    <h2>${trip.destination.name}</h2>
+    <image class="picture" src=${trip.destination.image}></image>
+      <ul>
+        <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
+        <li>Flight Cost: ${trip.destination.flightCost}</li>
+        <li>Date: ${trip.date}</li>
+        <li>Duration: ${trip.duration}</li>
+        <li>Travelers: ${trip.travelers}</li>
+      </ul>
+    </article>
+    `
+  })
+  presentBox.innerHTML = presentTripCard
 }
