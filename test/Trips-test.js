@@ -5,17 +5,17 @@ import { travelers } from './test-file.js';
 import { destinations } from './test-file.js'
 import Destination from '../src/Destination.js'
 import Traveler from '../src/Traveler.js'
-import Trips from '../src/Trips.js'
+import TripsRepo from '../src/TripsRepo.js'
 
-describe('Trips', () => {
+describe('TripsRepo', () => {
   let tripsRepo = null;
     beforeEach(() => {
-      tripsRepo = new Trips(trips)
+      tripsRepo = new TripsRepo(trips)
     });
 
     it('should be a function', () => {
 
-      expect(Trips).to.be.a('function');
+      expect(TripsRepo).to.be.a('function');
     });
 
     it('should hold trips data', () => {
