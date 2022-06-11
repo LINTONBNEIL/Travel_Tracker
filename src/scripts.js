@@ -87,10 +87,10 @@ const setTripsDestination = () => {
 
 const findPresentTrips = (travelersTrips) => {
 return travelersTrips.find(trip => {
-  console.log("past", trip)
     if (trip.date > date) {
-      console.log("trip", trip)
+      console.log("present", trip)
     }
+    console.log('past', trip)
     displayPastTrips(travelersTrips)
   })
 }
@@ -106,8 +106,9 @@ const displayTravelerInfo = (randomTraveler) => {
 }
 
 const displayPastTrips = (travelersTrips) => {
+  let pastTripCard = ''
   travelersTrips.forEach(trip => {
-    pastBox.innerHTML += `
+    pastTripCard += `
     <div class="traveler-card">
       <image class="picture">Destination Picture</image>
       <p>Destination Name</p>
@@ -118,4 +119,5 @@ const displayPastTrips = (travelersTrips) => {
     </div>
     `
   })
+  pastBox.innerHTML = pastTripCard
 }
