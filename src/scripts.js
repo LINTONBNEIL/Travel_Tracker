@@ -90,18 +90,21 @@ const setTripsDestination = () => {
   let destinationObj = destinationRepo.findDestination(trip.destination);
   trip.destination = destinationObj;
   });
-}
+};
 
 const findYearlySpent = (travelersTrips) => {
   let yearlySpent = 0;
   travelersTrips.forEach(trip => {
     if(trip.date.includes('2022')) {
-      yearlySpent += parseInt(trip.destination.lodgingCost + trip.destination.flightCost)
+      let totalLodging = parseInt((trip.destination.lodgingCost * trip.travelers) * trip.duration)
+      let totalFlight =  parseInt(trip.destination.flightCost * trip.travelers)
+      let agentFee = (totalLodging + totalFlight) * .10
+      yearlySpent += totalLodging + totalFlight + agentFee
       displayYearlySpent(yearlySpent)
     }
     displayYearlySpent(yearlySpent)
   })
-}
+};
 
 const findPresentTrips = (travelersTrips) => {
 return travelersTrips.find(trip => {
@@ -114,7 +117,7 @@ return travelersTrips.find(trip => {
     displayPastTrips(travelersTrips)
   }
 })
-}
+};
 
 const getRandomUser = (array) => {
     let randomIndex = Math.floor(Math.random() * array.length)
@@ -124,7 +127,7 @@ const getRandomUser = (array) => {
 //----DOM FUNCTIONS----
 const displayTravelerInfo = (randomTraveler) => {
   travelerName.innerHTML = `Welcome, ${randomTraveler.name}`
-}
+};
 
 const displayYearlySpent = (yearlySpent) => {
   if (yearlySpent > 0) {
@@ -132,7 +135,7 @@ const displayYearlySpent = (yearlySpent) => {
   } else {
     travelerAmount.innerHTML = `What? $${yearlySpent} dollars on trips?`
   }
-}
+};
 
 function changeTabs() {
   let id = event.target.dataset.id;
