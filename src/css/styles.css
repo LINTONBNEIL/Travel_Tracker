@@ -58,8 +58,9 @@ button {
   height: 100vh;
   width: inherit;
   display: flex;
-  justify-content: space-evenly;
-  overflow: scroll;
+  justify-content: space-around;
+  align-items: center;
+  overflow-x: scroll;
 }
 
 .button-heading {
@@ -79,12 +80,12 @@ button {
   background-color: pink;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .picture {
   height: 30%;
-  width: 100%;
+  width: inherit%;
 }
 
 ul {

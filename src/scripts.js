@@ -34,7 +34,7 @@ let destinationsArray;
 let destinationRepo;
 let travelersTrips
 
-let date = '2022/5/11';
+let date = '2022/05/11';
 
 //----EVENT LISTENERS----
 window.addEventListener('load', () => {
@@ -89,11 +89,13 @@ const findPresentTrips = (travelersTrips) => {
 return travelersTrips.find(trip => {
   if (trip.date > date) {
     console.log('upcoming', trip)
+    displayUpcomingTrips(travelersTrips)
   } else if (trip.date === date) {
     console.log("present", trip)
-  displayPresentTrips(travelersTrips)
+    displayPresentTrips(travelersTrips)
   } else {
-  displayPastTrips(travelersTrips)
+    console.log('past', trip)
+    displayPastTrips(travelersTrips)
   }
 })
 }
@@ -146,4 +148,24 @@ const displayPresentTrips = () => {
     `
   })
   presentBox.innerHTML = presentTripCard
+}
+
+const displayUpcomingTrips = () => {
+  let upcomingTripCard = ''
+  travelersTrips.forEach(trip => {
+    upcomingTripCard += `
+    <article class="traveler-card">
+    <h2>${trip.destination.name}</h2>
+    <image class="picture" src=${trip.destination.image}></image>
+      <ul>
+        <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
+        <li>Flight Cost: ${trip.destination.flightCost}</li>
+        <li>Date: ${trip.date}</li>
+        <li>Duration: ${trip.duration}</li>
+        <li>Travelers: ${trip.travelers}</li>
+      </ul>
+    </article>
+    `
+  })
+  upcomingBox.innerHTML = upcomingTripCard
 }
