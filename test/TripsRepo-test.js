@@ -28,7 +28,6 @@ describe('TripsRepo', () => {
       expect(tripsRepo.findTrip(1)).to.equal(trips[0]);
     });
 
-
     it('should be able to find all trips by a traveler id', () => {
 
       expect(tripsRepo.findAllTravelerTrip(1)).to.deep.equal([trips[0]])

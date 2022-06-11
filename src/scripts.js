@@ -1,13 +1,25 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
-import './css/styles.css';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
+//----IMPORTS----
 import './images/turing-logo.png'
 
+import './css/styles.css';
+import { allData } from './apiCalls.js'
+import Destination from '../src/Destination.js'
+import DestinationRepo from '../src/DestinationRepo.js'
+import Traveler from '../src/Traveler.js'
+import TravelerRepository from '../src/TravelerRepository.js';
+import TripsRepo from '../src/TripsRepo.js'
+import Trip from '../src/Trip.js'
 
-// console.log('This is the JavaScript entry file - your code begins here.');
+//----QUERY SELECTORS----
+let travelerName = document.querySelector('.traveler-greeting');
+// let tripCard = document.querySelector('.traveler-card');
+let presentBox = document.querySelector('.Present');
+let upcomingBox = document.querySelector('.Upcoming');
+let pendingBox = document.querySelector('.Pending');
+let pastBox = document.querySelector('.Past');
+
+
 
 //----GLOBAL VARIABLES----
 let travelerData = [];
@@ -16,32 +28,144 @@ let tripsData = [];
 let randomTraveler;
 let travelerArray;
 let travelerRepo;
+let tripsArray;
 let tripsRepo;
 let destinationsArray;
 let destinationRepo;
+let travelersTrips
+
+let date = '2022/05/11';
 
 //----EVENT LISTENERS----
-window.addEventListener('load', loadData);
+window.addEventListener('load', () => {
+  allData.then(data => {
+  travelerData = data[0].travelers
+  destinationData = data[1].destinations
+  tripsData = data[2].trips
+  initialSetup(travelerData, destinationData, tripsData)
+  }).catch(error => console.log(error))
+});
 
 //----DATA FUNCTIONS----
-function loadData() {
-  allData.then(data => {
-    travelerData = data[0],
-    destinationData = data[1],
-    tripsData = data[2]
-    initialSetup(true)
-  }).catch(error => console.log(error))
+
+const initialSetup = (travelers, destinations, trips) => {
+  createTraveler(travelers)
+  createDestinations(destinations)
+  createTrips(trips)
 };
 
-  function initialSetup(first) {
-    travelerArray = travelerData.travelerData.map(traveler => new Traveler(traveler));
-    travelerRepo = new TravelerRepository(travelerArray);
-    tripsRepo = new Trips(tripsData.tripsData)
-    destinationsArray = destinationData.destinationData.map(destination => new Destination(destination));
-    destinationRepo = new DestinationRepo(destinationsArray)
-  };
+const createTraveler = (travelerData) => {
+travelerArray = travelerData.map(traveler => new Traveler(traveler));
+travelerRepo = new TravelerRepository(travelerArray)
+randomTraveler = getRandomUser(travelerRepo.travelerData)
+displayTravelerInfo(randomTraveler)
+};
 
-  function getRandomUser(array) {
+const createDestinations = (destinationData) => {
+  destinationsArray = destinationData.map(destination => new Destination(destination));
+  destinationRepo = new DestinationRepo(destinationsArray)
+};
+
+const createTrips = (tripData) => {
+  tripsArray = tripsData.map(trip => new Trip(trip));
+  tripsRepo = new TripsRepo(tripsArray)
+  findTravelerTrips(tripsRepo)
+};
+
+const findTravelerTrips = (tripsRepo) => {
+  travelersTrips = tripsRepo.findAllTravelerTrip(randomTraveler.id)
+  setTripsDestination()
+  findPresentTrips(travelersTrips)
+}
+
+const setTripsDestination = () => {
+  travelersTrips.forEach(trip => {
+  let destinationObj = destinationRepo.findDestination(trip.destination);
+  trip.destination = destinationObj;
+  });
+}
+
+const findPresentTrips = (travelersTrips) => {
+return travelersTrips.find(trip => {
+  if (trip.date > date) {
+    console.log('upcoming', trip)
+    displayUpcomingTrips(travelersTrips)
+  } else if (trip.date === date) {
+    console.log("present", trip)
+    displayPresentTrips(travelersTrips)
+  } else {
+    console.log('past', trip)
+    displayPastTrips(travelersTrips)
+  }
+})
+}
+
+const getRandomUser = (array) => {
     let randomIndex = Math.floor(Math.random() * array.length)
     return array[randomIndex]
-  };
+};
+
+//----DOM FUNCTIONS----
+const displayTravelerInfo = (randomTraveler) => {
+  travelerName.innerHTML = `Welcome, ${randomTraveler.name}`
+}
+
+const displayPastTrips = (travelersTrips) => {
+  let pastTripCard = ''
+  travelersTrips.forEach(trip => {
+    pastTripCard += `
+    <article class="traveler-card">
+    <h2>${trip.destination.name}</h2>
+    <image class="picture" src=${trip.destination.image}></image>
+      <ul>
+        <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
+        <li>Flight Cost: ${trip.destination.flightCost}</li>
+        <li>Date: ${trip.date}</li>
+        <li>Duration: ${trip.duration}</li>
+        <li>Travelers: ${trip.travelers}</li>
+      </ul>
+    </article>
+    `
+  })
+  pastBox.innerHTML = pastTripCard
+}
+
+const displayPresentTrips = () => {
+  let presentTripCard = ''
+  travelersTrips.forEach(trip => {
+    presentTripCard += `
+    <article class="traveler-card">
+    <h2>${trip.destination.name}</h2>
+    <image class="picture" src=${trip.destination.image}></image>
+      <ul>
+        <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
+        <li>Flight Cost: ${trip.destination.flightCost}</li>
+        <li>Date: ${trip.date}</li>
+        <li>Duration: ${trip.duration}</li>
+        <li>Travelers: ${trip.travelers}</li>
+      </ul>
+    </article>
+    `
+  })
+  presentBox.innerHTML = presentTripCard
+}
+
+const displayUpcomingTrips = () => {
+  let upcomingTripCard = ''
+  travelersTrips.forEach(trip => {
+    upcomingTripCard += `
+    <article class="traveler-card">
+    <h2>${trip.destination.name}</h2>
+    <image class="picture" src=${trip.destination.image}></image>
+      <ul>
+        <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
+        <li>Flight Cost: ${trip.destination.flightCost}</li>
+        <li>Date: ${trip.date}</li>
+        <li>Duration: ${trip.duration}</li>
+        <li>Travelers: ${trip.travelers}</li>
+      </ul>
+    </article>
+    `
+  })
+  upcomingBox.innerHTML = upcomingTripCard
+}
