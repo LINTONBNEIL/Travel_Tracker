@@ -13,6 +13,7 @@ import Trip from '../src/Trip.js'
 
 //----QUERY SELECTORS----
 let travelerName = document.querySelector('.traveler-greeting');
+let travelerAmount = document.querySelector('.traveler-amount')
 // let tripCard = document.querySelector('.traveler-card');
 let presentBox = document.querySelector('.Present');
 let upcomingBox = document.querySelector('.Upcoming');
@@ -76,6 +77,7 @@ const findTravelerTrips = (tripsRepo) => {
   travelersTrips = tripsRepo.findAllTravelerTrip(randomTraveler.id)
   setTripsDestination()
   findPresentTrips(travelersTrips)
+  findYearlySpent(travelersTrips)
 }
 
 const setTripsDestination = () => {
@@ -83,6 +85,17 @@ const setTripsDestination = () => {
   let destinationObj = destinationRepo.findDestination(trip.destination);
   trip.destination = destinationObj;
   });
+}
+
+const findYearlySpent = (travelersTrips) => {
+  let yearlySpent = 0;
+  travelersTrips.forEach(trip => {
+    if(trip.date.includes('2022')) {
+      yearlySpent += parseInt(trip.destination.lodgingCost + trip.destination.flightCost)
+      displayYearlySpent(yearlySpent)
+    }
+    displayYearlySpent(yearlySpent)
+  })
 }
 
 const findPresentTrips = (travelersTrips) => {
@@ -108,6 +121,14 @@ const getRandomUser = (array) => {
 //----DOM FUNCTIONS----
 const displayTravelerInfo = (randomTraveler) => {
   travelerName.innerHTML = `Welcome, ${randomTraveler.name}`
+}
+
+const displayYearlySpent = (yearlySpent) => {
+  if (yearlySpent > 0) {
+    travelerAmount.innerHTML = `You spent, $${yearlySpent} dollars this year!`
+  } else {
+    travelerAmount.innerHTML = `What? $${yearlySpent} dollars on trips?`
+  }
 }
 
 const displayPastTrips = (travelersTrips) => {
