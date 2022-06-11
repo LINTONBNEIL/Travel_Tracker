@@ -20,6 +20,9 @@ let upcomingBox = document.querySelector('.Upcoming');
 let pendingBox = document.querySelector('.Pending');
 let pastBox = document.querySelector('.Past');
 
+let tabs = document.querySelectorAll('.tabs-container');
+let tabButton = document.querySelectorAll('.tab-button');
+let contents = document.querySelectorAll('.box')
 
 
 //----GLOBAL VARIABLES----
@@ -38,6 +41,8 @@ let travelersTrips
 let date = '2022/05/11';
 
 //----EVENT LISTENERS----
+tabs.addEventListener('click', changeTabs)
+
 window.addEventListener('load', () => {
   allData.then(data => {
   travelerData = data[0].travelers
@@ -126,6 +131,23 @@ const displayYearlySpent = (yearlySpent) => {
     travelerAmount.innerHTML = `You spent, $${yearlySpent} dollars this year!`
   } else {
     travelerAmount.innerHTML = `What? $${yearlySpent} dollars on trips?`
+  }
+}
+
+function changeTabs() {
+  let id = event.target.dataset.id;
+  if (id) {
+    tabButton.forEach(btn => {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+
+    contents.forEach(content => {
+      content.classList.remove('active');
+    });
+
+    let element = document.getElementById(id);
+    element.classList.add('active')
   }
 }
 
