@@ -16,6 +16,7 @@ let tripsData = [];
 let randomTraveler;
 let travelerArray;
 let travelerRepo;
+let tripsArray;
 let tripsRepo;
 let destinationsArray;
 let destinationRepo;
@@ -36,9 +37,13 @@ function loadData() {
   function initialSetup(first) {
     travelerArray = travelerData.travelerData.map(traveler => new Traveler(traveler));
     travelerRepo = new TravelerRepository(travelerArray);
-    tripsRepo = new Trips(tripsData.tripsData)
+    tripsArray = tripsData.tripsData.map(trip => new Trip(trip));
+    tripsRepo = new Trips(tripsArray)
     destinationsArray = destinationData.destinationData.map(destination => new Destination(destination));
     destinationRepo = new DestinationRepo(destinationsArray)
+    if (first) {
+      randomTraveler = getRandomUser(travelerRepo.travelerData)
+    }
   };
 
   function getRandomUser(array) {
