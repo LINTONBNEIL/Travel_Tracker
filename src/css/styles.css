@@ -53,7 +53,29 @@ button {
 }
 
 .box {
-  height: 30vh;
+  height: 100vh;
   width: inherit;
 }
+
+.button-heading {
+  height: auto;
+  width: auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* PRESENT USER CARD */
+
+.traveler-card {
+  height: 100%;
+  width: 14%;
+  color: black;
+  background-color: pink;
+}
+
 /* WRAPPER END */
+
+.hidden {
+  display: none!important;
+}

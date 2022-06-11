@@ -18,13 +18,28 @@
     </nav>
     <section class="wrapper">
       <div class="head">
-        <h2>Hello, Traveler</h2>
-        <h2>Money Spend this year</h2>
+        <h2 class="traveler-greeting">Hello, Traveler</h2>
+        <h2 class="traveler-amount">Money Spend this year</h2>
       </div>
-      <section class="Present box">Present</section>
-      <section class="Upcoming box">Upcoming</section>
-      <section class="Pending box">Pending</section>
-      <section class="Past box">Past</section>
+      <section class="button-heading">
+        <button>Present</button>
+        <button>Upcoming</button>
+        <button>Pending</button>
+        <button>Past</button>
+      </section>
+      <section class="Present box">
+        <div class="traveler-card">
+          <image class="picture">Destination Picture</image>
+          <p>Destination Name</p>
+          <p>Destination Cost lodging/flight</p>
+          <p>Trip Date</p>
+          <p>Trip duration</p>
+          <p>Trip activities</p>
+        </div>
+      </section>
+      <section class="Upcoming box hidden">Upcoming</section>
+      <section class="Pending box hidden">Pending</section>
+      <section class="Past box hidden">Past</section>
     </section>
   </main>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->

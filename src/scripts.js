@@ -1,13 +1,19 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
-import './css/styles.css';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
+//----IMPORTS----
 import './images/turing-logo.png'
 
+import './css/styles.css';
+import { allData } from './apiCalls.js'
+import Destination from '../src/Destination.js'
+import DestinationRepo from '../src/DestinationRepo.js'
+import Traveler from '../src/Traveler.js'
+import TravelerRepository from '../src/TravelerRepository.js';
+import TripsRepo from '../src/TripsRepo.js'
+import Trip from '../src/Trip.js'
 
-// console.log('This is the JavaScript entry file - your code begins here.');
+//----QUERY SELECTORS----
+let travelerName = document.querySelector('.traveler-greeting')
+
 
 //----GLOBAL VARIABLES----
 let travelerData = [];
@@ -23,6 +29,8 @@ let destinationRepo;
 
 //----EVENT LISTENERS----
 window.addEventListener('load', loadData);
+
+//----DOM FUNCTIONS----
 
 //----DATA FUNCTIONS----
 function loadData() {
