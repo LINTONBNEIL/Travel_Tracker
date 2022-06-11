@@ -15,7 +15,6 @@ main {
   display: flex;
   justify-content: flex-start;
 }
-
  /* NAV START */
 nav {
   height: 100vh;
@@ -37,7 +36,6 @@ button {
   width: 10vw;
 }
 /* NAV END */
-
 /* WRAPPER */
 .wrapper {
   height: 100vh;
@@ -54,13 +52,11 @@ button {
   align-items: center;
 }
 
-.box {
-  height: 100vh;
-  width: inherit;
+.tabs-container {
+  height: 100%;
+  width: 100%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  overflow-x: scroll;
+  flex-direction: column;
 }
 
 .button-heading {
@@ -71,10 +67,22 @@ button {
   align-items: center;
 }
 
-/* USER CARD */
+.box {
+  height: 100%;
+  width: 100%;
+  display: none;
+  justify-content: space-around;
+  align-items: center;
+  overflow-x: scroll;
+}
 
+.box.active {
+  display: flex;
+}
+
+/* USER CARD */
 .traveler-card {
-  height: 60%;
+  height: 65%;
   width: 14%;
   color: black;
   background-color: pink;
@@ -93,9 +101,7 @@ ul {
   margin: 0;
   padding-left: 0px
 }
-
 /* WRAPPER END */
-
 .hidden {
   display: none!important;
 }
