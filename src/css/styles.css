@@ -58,7 +58,6 @@ button {
   height: 100vh;
   width: inherit;
   display: flex;
-  flex-direction: start;
   justify-content: space-evenly;
   overflow: scroll;
 }
@@ -74,7 +73,7 @@ button {
 /* USER CARD */
 
 .traveler-card {
-  height: 80%;
+  height: 60%;
   width: 14%;
   color: black;
   background-color: pink;
@@ -85,7 +84,7 @@ button {
 
 .picture {
   height: 30%;
-  width: 95%;
+  width: 100%;
 }
 
 ul {

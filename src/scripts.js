@@ -82,18 +82,20 @@ const setTripsDestination = () => {
   travelersTrips.forEach(trip => {
   let destinationObj = destinationRepo.findDestination(trip.destination);
   trip.destination = destinationObj;
-});
+  });
 }
 
 const findPresentTrips = (travelersTrips) => {
 return travelersTrips.find(trip => {
-    if (trip.date > date) {
-      console.log("present", trip)
-    displayPresentTrips(travelersTrips)
-    }
-    // console.log('past', trip)
-    displayPastTrips(travelersTrips)
-  })
+  if (trip.date > date) {
+    console.log('upcoming', trip)
+  } else if (trip.date === date) {
+    console.log("present", trip)
+  displayPresentTrips(travelersTrips)
+  } else {
+  displayPastTrips(travelersTrips)
+  }
+})
 }
 
 const getRandomUser = (array) => {
