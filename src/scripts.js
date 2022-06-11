@@ -20,7 +20,7 @@ let upcomingBox = document.querySelector('.Upcoming');
 let pendingBox = document.querySelector('.Pending');
 let pastBox = document.querySelector('.Past');
 
-let tabs = document.querySelectorAll('.tabs-container');
+let tabs = document.querySelector('.tabs-container');
 let tabButton = document.querySelectorAll('.tab-button');
 let contents = document.querySelectorAll('.box')
 
