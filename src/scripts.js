@@ -82,6 +82,8 @@ const findTravelerTrips = (tripsRepo) => {
   travelersTrips = tripsRepo.findAllTravelerTrip(randomTraveler.id)
   setTripsDestination()
   findPresentTrips(travelersTrips)
+  findUpcomingTrips(travelersTrips)
+  findPastTrips(travelersTrips)
   findYearlySpent(travelersTrips)
 }
 
@@ -92,32 +94,61 @@ const setTripsDestination = () => {
   });
 };
 
+//OLD CODE(SAVING JUST IN CASE)
+// const findYearlySpent = (travelersTrips) => {
+//   let yearlySpent = 0;
+//   travelersTrips.forEach(trip => {
+//     if(trip.date.includes('2022')) {
+//       let totalLodging = parseInt((trip.destination.lodgingCost * trip.travelers) * trip.duration)
+//       let totalFlight =  parseInt(trip.destination.flightCost * trip.travelers)
+//       let agentFee = (totalLodging + totalFlight) * .10
+//       yearlySpent += totalLodging + totalFlight + agentFee
+//       displayYearlySpent(yearlySpent)
+//     }
+//     displayYearlySpent(yearlySpent)
+//   })
+// };
+
 const findYearlySpent = (travelersTrips) => {
-  let yearlySpent = 0;
-  travelersTrips.forEach(trip => {
+let yearlySpent = travelersTrips.reduce((acc, trip) => {
     if(trip.date.includes('2022')) {
       let totalLodging = parseInt((trip.destination.lodgingCost * trip.travelers) * trip.duration)
       let totalFlight =  parseInt(trip.destination.flightCost * trip.travelers)
       let agentFee = (totalLodging + totalFlight) * .10
-      yearlySpent += totalLodging + totalFlight + agentFee
-      displayYearlySpent(yearlySpent)
+      acc += totalLodging + totalFlight + agentFee
     }
-    displayYearlySpent(yearlySpent)
-  })
-};
+
+    return acc
+  }, 0)
+  displayYearlySpent(yearlySpent)
+}
 
 const findPresentTrips = (travelersTrips) => {
-return travelersTrips.find(trip => {
-  if (trip.date > date) {
-    //another function that handles upcoming vs pending
-    displayUpcomingTrips(travelersTrips)
-  } else if (trip.date === date) {
-    displayPresentTrips(travelersTrips)
-  } else {
-    displayPastTrips(travelersTrips)
+  let presentTrips = travelersTrips.filter(trip => {
+    if (trip.date === date) {
+    return trip
   }
-})
+  })
+  displayPresentTrips(presentTrips)
 };
+
+const findUpcomingTrips = (travelersTrips) => {
+  let upcomingTrips = travelersTrips.filter(trip => {
+    if (trip.date > date) {
+      return trip
+    }
+  })
+  displayUpcomingTrips(upcomingTrips)
+}
+
+const findPastTrips = (travelersTrips) => {
+  let pastTrips = travelersTrips.filter(trip => {
+    if (trip.date < date) {
+      return trip
+    }
+  })
+  displayPastTrips(pastTrips)
+}
 
 const getRandomUser = (array) => {
     let randomIndex = Math.floor(Math.random() * array.length)
@@ -154,9 +185,10 @@ function changeTabs() {
   }
 }
 
-const displayPastTrips = (travelersTrips) => {
+const displayPastTrips = (pastTrips) => {
+  console.log('past', pastTrips)
   let pastTripCard = ''
-  travelersTrips.forEach(trip => {
+  pastTrips.forEach(trip => {
     pastTripCard += `
     <article class="traveler-card">
     <h2>${trip.destination.name}</h2>
@@ -174,29 +206,31 @@ const displayPastTrips = (travelersTrips) => {
   pastBox.innerHTML = pastTripCard
 }
 
-const displayPresentTrips = () => {
-  let presentTripCard = ''
-  travelersTrips.forEach(trip => {
-    presentTripCard += `
-    <article class="traveler-card">
-    <h2>${trip.destination.name}</h2>
-    <image class="picture" src=${trip.destination.image}></image>
-      <ul>
-        <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
-        <li>Flight Cost: ${trip.destination.flightCost}</li>
-        <li>Date: ${trip.date}</li>
-        <li>Duration: ${trip.duration}</li>
-        <li>Travelers: ${trip.travelers}</li>
-      </ul>
-    </article>
-    `
-  })
+const displayPresentTrips = (presentTrips) => {
+  console.log('present', presentTrips)
+    let presentTripCard = ''
+    presentTrips.forEach(trip => {
+      presentTripCard += `
+      <article class="traveler-card">
+      <h2>${trip.destination.name}</h2>
+      <image class="picture" src=${presentTrip.destination.image}></image>
+        <ul>
+          <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
+          <li>Flight Cost: ${trip.destination.flightCost}</li>
+          <li>Date: ${trip.date}</li>
+          <li>Duration: ${trip.duration}</li>
+          <li>Travelers: ${trip.travelers}</li>
+        </ul>
+      </article>
+      `
+    })
   presentBox.innerHTML = presentTripCard
 }
 
-const displayUpcomingTrips = () => {
+const displayUpcomingTrips = (upcomingTrips) => {
+  console.log('upcoming', upcomingTrips)
   let upcomingTripCard = ''
-  travelersTrips.forEach(trip => {
+    upcomingTrips.forEach(trip => {
     upcomingTripCard += `
     <article class="traveler-card">
     <h2>${trip.destination.name}</h2>
@@ -211,5 +245,5 @@ const displayUpcomingTrips = () => {
     </article>
     `
   })
-  upcomingBox.innerHTML = upcomingTripCard
+    upcomingBox.innerHTML = upcomingTripCard
 }
