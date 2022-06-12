@@ -84,6 +84,7 @@ const findTravelerTrips = (tripsRepo) => {
   findPresentTrips(travelersTrips)
   findUpcomingTrips(travelersTrips)
   findPastTrips(travelersTrips)
+  findPendingTrips(travelersTrips)
   findYearlySpent(travelersTrips)
 }
 
@@ -148,6 +149,15 @@ const findPastTrips = (travelersTrips) => {
     }
   })
   displayPastTrips(pastTrips)
+}
+
+const findPendingTrips = (travelersTrips) => {
+  let pendingTrips = travelersTrips.filter(trip => {
+    if (trip.status !== 'approved') {
+      return trip
+    }
+  })
+  displayPendingTrips(pendingTrips)
 }
 
 const getRandomUser = (array) => {
@@ -246,4 +256,25 @@ const displayUpcomingTrips = (upcomingTrips) => {
     `
   })
     upcomingBox.innerHTML = upcomingTripCard
+}
+
+const displayPendingTrips = (pendingTrips) => {
+  console.log('pending', pendingTrips)
+  let pendingTripCard = ''
+    pendingTrips.forEach(trip => {
+    pendingTripCard += `
+    <article class="traveler-card">
+    <h2>${trip.destination.name}</h2>
+    <image class="picture" src=${trip.destination.image}></image>
+      <ul>
+        <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
+        <li>Flight Cost: ${trip.destination.flightCost}</li>
+        <li>Date: ${trip.date}</li>
+        <li>Duration: ${trip.duration}</li>
+        <li>Travelers: ${trip.travelers}</li>
+      </ul>
+    </article>
+    `
+  })
+    pendingBox.innerHTML = pendingTripCard
 }
