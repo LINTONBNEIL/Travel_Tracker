@@ -130,7 +130,7 @@ let yearlySpent = travelersTrips.reduce((acc, trip) => {
 
 const findPresentTrips = (travelersTrips) => {
   let presentTrips = travelersTrips.filter(trip => {
-    if (trip.date === date) {
+    if (trip.date === date && trip.status !== 'pending') {
     return trip
   }
   })
@@ -139,7 +139,7 @@ const findPresentTrips = (travelersTrips) => {
 
 const findUpcomingTrips = (travelersTrips) => {
   let upcomingTrips = travelersTrips.filter(trip => {
-    if (trip.date > date) {
+    if (trip.date > date && trip.status !== 'pending') {
       return trip
     }
   })
@@ -148,7 +148,7 @@ const findUpcomingTrips = (travelersTrips) => {
 
 const findPastTrips = (travelersTrips) => {
   let pastTrips = travelersTrips.filter(trip => {
-    if (trip.date < date) {
+    if (trip.date < date && trip.status !== 'pending') {
       return trip
     }
   })
@@ -200,7 +200,7 @@ function changeTabs() {
 }
 
 const displayPastTrips = (pastTrips) => {
-  // console.log('past', pastTrips)
+  console.log('past', pastTrips)
   let pastTripCard = ''
   pastTrips.forEach(trip => {
     pastTripCard += `
@@ -242,7 +242,7 @@ const displayPresentTrips = (presentTrips) => {
 }
 
 const displayUpcomingTrips = (upcomingTrips) => {
-  // console.log('upcoming', upcomingTrips)
+  console.log('upcoming', upcomingTrips)
   let upcomingTripCard = ''
     upcomingTrips.forEach(trip => {
     upcomingTripCard += `
@@ -263,7 +263,7 @@ const displayUpcomingTrips = (upcomingTrips) => {
 }
 
 const displayPendingTrips = (pendingTrips) => {
-  // console.log('pending', pendingTrips)
+  console.log('pending', pendingTrips)
   let pendingTripCard = ''
     pendingTrips.forEach(trip => {
     pendingTripCard += `
