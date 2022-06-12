@@ -3,7 +3,11 @@
 import './images/turing-logo.png'
 
 import './css/styles.css';
-import { allData } from './apiCalls.js'
+import {
+  allData,
+  postUserCall,
+  checkForError
+} from './apiCalls.js'
 import Destination from '../src/Destination.js'
 import DestinationRepo from '../src/DestinationRepo.js'
 import Traveler from '../src/Traveler.js'
@@ -160,11 +164,35 @@ const getRandomUser = (array) => {
 };
 
 const createOptions = () => {
-  console.log("repo", destinationRepo)
-
   destinationRepo.destinationData.forEach(destination => {
     destinationForm.innerHTML += `<option value=${destination.id}>${destination.name}</option>`
   })
+}
+
+// ----POST----
+function reloadData(formType) {
+  allData.then(data => {
+    travelerData = data[0].travelers
+    destinationData = data[1].destinations
+    tripsData = data[2].trips
+    initialSetup();
+  }).catch(error => console.log(error))
+};
+
+const submitFormPost = () => {
+  event.preventDefault()
+  console.log(randomTraveler.id)
+  let tripObj = {
+    id: tripsRepo.tripsData.length,
+    userID: randomTraveler.id,
+    destinationID: destinationForm.value,
+    travelers: travelerForm.value,
+    date: calendarForm.value.split('-').join('/'),
+    duration: durationForm.value,
+    status: pending,
+    suggestedActivities: []
+  }
+  postUserCall(tripObj, 'trips').then(response => reloadData('trips'))
 }
 
 //----DOM FUNCTIONS----
@@ -295,5 +323,6 @@ window.addEventListener('load', () => {
 
 tabs.addEventListener('click', changeTabs)
 newTrips.addEventListener('click', createOptions)
+submitForm.addEventListener('click', submitFormPost)
 // dashboard.addEventListener('click')
 //logout.addEventListener('click', )
