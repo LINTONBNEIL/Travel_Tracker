@@ -38,7 +38,9 @@ let destinationsArray;
 let destinationRepo;
 let travelersTrips
 
-let date = '2022/05/11';
+let date;
+
+
 
 //----EVENT LISTENERS----
 tabs.addEventListener('click', changeTabs)
@@ -52,13 +54,30 @@ window.addEventListener('load', () => {
   }).catch(error => console.log(error))
 });
 
+
+
 //----DATA FUNCTIONS----
 
 const initialSetup = (travelers, destinations, trips) => {
+  dateFunction()
   createTraveler(travelers)
   createDestinations(destinations)
   createTrips(trips)
 };
+
+const dateFunction = () => {
+    let d = new Date()
+    let year = d.getFullYear().toString()
+    let month = d.getMonth().toString()
+    let day = d.getDate().toString()
+    if (month.length < 2) {
+    month = '0' + month;
+    }
+    if (day.lenght < 2) {
+      day = '0' + day;
+    }
+    date = [year, month, day].join('/')
+}
 
 const createTraveler = (travelerData) => {
 travelerArray = travelerData.map(traveler => new Traveler(traveler));
@@ -95,21 +114,6 @@ const setTripsDestination = () => {
   });
 };
 
-//OLD CODE(SAVING JUST IN CASE)
-// const findYearlySpent = (travelersTrips) => {
-//   let yearlySpent = 0;
-//   travelersTrips.forEach(trip => {
-//     if(trip.date.includes('2022')) {
-//       let totalLodging = parseInt((trip.destination.lodgingCost * trip.travelers) * trip.duration)
-//       let totalFlight =  parseInt(trip.destination.flightCost * trip.travelers)
-//       let agentFee = (totalLodging + totalFlight) * .10
-//       yearlySpent += totalLodging + totalFlight + agentFee
-//       displayYearlySpent(yearlySpent)
-//     }
-//     displayYearlySpent(yearlySpent)
-//   })
-// };
-
 const findYearlySpent = (travelersTrips) => {
 let yearlySpent = travelersTrips.reduce((acc, trip) => {
     if(trip.date.includes('2022')) {
@@ -126,7 +130,7 @@ let yearlySpent = travelersTrips.reduce((acc, trip) => {
 
 const findPresentTrips = (travelersTrips) => {
   let presentTrips = travelersTrips.filter(trip => {
-    if (trip.date === date) {
+    if (trip.date === date && trip.status !== 'pending') {
     return trip
   }
   })
@@ -135,7 +139,7 @@ const findPresentTrips = (travelersTrips) => {
 
 const findUpcomingTrips = (travelersTrips) => {
   let upcomingTrips = travelersTrips.filter(trip => {
-    if (trip.date > date) {
+    if (trip.date > date && trip.status !== 'pending') {
       return trip
     }
   })
@@ -144,7 +148,7 @@ const findUpcomingTrips = (travelersTrips) => {
 
 const findPastTrips = (travelersTrips) => {
   let pastTrips = travelersTrips.filter(trip => {
-    if (trip.date < date) {
+    if (trip.date < date && trip.status !== 'pending') {
       return trip
     }
   })
