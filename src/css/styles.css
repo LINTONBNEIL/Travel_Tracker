@@ -79,7 +79,6 @@ button {
 .box.active {
   display: flex;
 }
-
 /* USER CARD */
 .traveler-card {
   height: 65%;
