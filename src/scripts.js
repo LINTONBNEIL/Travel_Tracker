@@ -1,7 +1,7 @@
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 //----IMPORTS----
 import './images/turing-logo.png'
-
+import dayjs from 'dayjs'
 import './css/styles.css';
 import {
   allData,
@@ -49,29 +49,13 @@ let tripsRepo;
 let destinationsArray;
 let destinationRepo;
 let travelersTrips
-let date;
 
 //----DATA FUNCTIONS----
 const initialSetup = (travelers, destinations, trips) => {
-  dateFunction()
   createTraveler(travelers)
   createDestinations(destinations)
   createTrips(trips)
 };
-
-const dateFunction = () => {
-    let d = new Date()
-    let year = d.getFullYear().toString()
-    let month = d.getMonth().toString()
-    let day = d.getDate().toString()
-    if (month.length < 2) {
-    month = '0' + month;
-    }
-    if (day.lenght < 2) {
-      day = '0' + day;
-    }
-    date = [year, month, day].join('/')
-}
 
 const createTraveler = (travelerData) => {
 travelerArray = travelerData.map(traveler => new Traveler(traveler));
@@ -110,9 +94,9 @@ const setTripsDestination = () => {
 
 const findYearlySpent = (travelersTrips) => {
 let yearlySpent = travelersTrips.reduce((acc, trip) => {
-    if(trip.date.includes('2022')) {
+    if(dayjs(trip.date).year() === dayjs().year()) {
       let totalLodging = parseInt((trip.destination.lodgingCost * trip.travelers) * trip.duration)
-      let totalFlight =  parseInt(trip.destination.flightCost * trip.travelers)
+      let totalFlight =  parseInt((trip.destination.flightCost * trip.travelers) * 2)
       let agentFee = (totalLodging + totalFlight) * .10
       acc += totalLodging + totalFlight + agentFee
     }
@@ -124,7 +108,7 @@ let yearlySpent = travelersTrips.reduce((acc, trip) => {
 
 const findPresentTrips = (travelersTrips) => {
   let presentTrips = travelersTrips.filter(trip => {
-    if (trip.date === date && trip.status !== 'pending') {
+    if (dayjs(trip.date) === dayjs() && trip.status !== 'pending') {
     return trip
   }
   })
@@ -133,7 +117,7 @@ const findPresentTrips = (travelersTrips) => {
 
 const findUpcomingTrips = (travelersTrips) => {
   let upcomingTrips = travelersTrips.filter(trip => {
-    if (trip.date > date && trip.status !== 'pending') {
+    if (dayjs(trip.date) > dayjs() && trip.status !== 'pending') {
       return trip
     }
   })
@@ -142,7 +126,7 @@ const findUpcomingTrips = (travelersTrips) => {
 
 const findPastTrips = (travelersTrips) => {
   let pastTrips = travelersTrips.filter(trip => {
-    if (trip.date < date && trip.status !== 'pending') {
+    if (dayjs(trip.date) < dayjs() && trip.status !== 'pending') {
       return trip
     }
   })
