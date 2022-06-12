@@ -101,6 +101,35 @@ ul {
   margin: 0;
   padding-left: 0px
 }
+/* USER CARD */
+/* FORM */
+.trips-form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  height: 45%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 /* WRAPPER END */
 .hidden {
   display: none!important;

@@ -11,9 +11,9 @@
     <nav>
       <h2>Travel Tracker</h2>
       <div class="button-wrapper">
-        <button></button>
-        <button></button>
-        <button></button>
+        <button>Dashboard</button>
+        <button>New Trips</button>
+        <button>Logout</button>
       </div>
     </nav>
     <section class="wrapper">
@@ -21,8 +21,36 @@
         <h2 class="traveler-greeting">Loading..</h2>
         <h2 class="traveler-amount">Loading..</h2>
       </div>
+      <!-- LINEBREAK FORM -->
+    <section class="trips-form">
+      <form method="post">
+        <ul class="form">
+          <li>
+            <label for="destination" id="destination">Destination:
+              <select name="destination" id="destination"></select>
+            </label>
+          </li>
+          <li>
+            <label for="calender" id="calender">Select Date:
+              <input type="date" name="calender" id="calender">
+            </label>
+          </li>
+          <li>
+            <label for="travelers" id="traveler">Travelers:
+              <input type="number" name="traveler" id="traveler">
+            </label>
+          </li>
+          <li>
+            <label for="duration" id="duration">Duration:
+              <input type="number" name="duration" id="duration">
+            </label>
+          </li>
+        </ul>
+      </form>
+    </section>
+    <!-- END FORM LINEBREAK -->
       <!-- LINEBREAK TABS -->
-      <section class="tabs-container">
+      <section class="tabs-container hidden">
         <section class="button-heading">
           <button class="tab-button active" data-id="present">Present</button>
           <button class="tab-button" data-id="upcoming">Upcoming</button>
