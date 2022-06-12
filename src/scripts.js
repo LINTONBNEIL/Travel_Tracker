@@ -94,7 +94,6 @@ const setTripsDestination = () => {
 
 const findYearlySpent = (travelersTrips) => {
 let yearlySpent = travelersTrips.reduce((acc, trip) => {
-  // console.log('tripYear', dayjs(trip.date).year(), 'tripNoYear', dayjs(trip.date), 'dayJsYear', trip.date)
     if(dayjs(trip.date).year() === dayjs().year()) {
       let totalLodging = parseInt((trip.destination.lodgingCost * trip.travelers) * trip.duration)
       let totalFlight =  parseInt((trip.destination.flightCost * trip.travelers) * 2)
@@ -156,7 +155,7 @@ const createOptions = () => {
 
 // ----POST----
 function reloadData(formType) {
-  allData.then(data => {
+  allData().then(data => {
     travelerData = data[0].travelers
     destinationData = data[1].destinations
     tripsData = data[2].trips
@@ -177,7 +176,6 @@ const submitFormPost = () => {
     suggestedActivities: ['fun', 'test']
   }
 
-  console.log(tripObj)
   postUserCall(tripObj, 'trips').then(response => reloadData('trips'))
 }
 
@@ -299,7 +297,7 @@ const displayPendingTrips = (pendingTrips) => {
 
 //----EVENT LISTENERS----
 window.addEventListener('load', () => {
-  allData.then(data => {
+  allData().then(data => {
   travelerData = data[0].travelers
   destinationData = data[1].destinations
   tripsData = data[2].trips
