@@ -11,9 +11,9 @@
     <nav>
       <h2>Travel Tracker</h2>
       <div class="button-wrapper">
-        <button>Dashboard</button>
-        <button>New Trips</button>
-        <button>Logout</button>
+        <button class="dashboard">Dashboard</button>
+        <button class="new-trips">New Trips</button>
+        <button class="logout">Logout</button>
       </div>
     </nav>
     <section class="wrapper">
@@ -27,7 +27,7 @@
         <ul class="form">
           <li>
             <label for="destination" id="destination">Destination:
-              <select name="destination" id="destination"></select>
+              <select name="destination" id="destinationOption"></select>
             </label>
           </li>
           <li>
@@ -36,13 +36,18 @@
             </label>
           </li>
           <li>
-            <label for="travelers" id="traveler">Travelers:
-              <input type="number" name="traveler" id="traveler">
+            <label for="travelers" id="travelers">Travelers:
+              <input type="number" name="travelers" id="travelers">
             </label>
           </li>
           <li>
             <label for="duration" id="duration">Duration:
               <input type="number" name="duration" id="duration">
+            </label>
+          </li>
+          <li>
+            <label for="submit" id="submit">
+              <input type="submit" name="submit" id="submit">
             </label>
           </li>
         </ul>

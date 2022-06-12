@@ -14,16 +14,24 @@ import Trip from '../src/Trip.js'
 //----QUERY SELECTORS----
 let travelerName = document.querySelector('.traveler-greeting');
 let travelerAmount = document.querySelector('.traveler-amount')
-// let tripCard = document.querySelector('.traveler-card');
 let presentBox = document.querySelector('.Present');
 let upcomingBox = document.querySelector('.Upcoming');
 let pendingBox = document.querySelector('.Pending');
 let pastBox = document.querySelector('.Past');
-
+//----TABS----
 let tabs = document.querySelector('.tabs-container');
 let tabButton = document.querySelectorAll('.tab-button');
-let contents = document.querySelectorAll('.box')
-
+let contents = document.querySelectorAll('.box');
+//----FORM----
+let destinationForm = document.getElementById('destinationOption');
+let calendarForm = document.getElementById('calendar');
+let travelerForm = document.getElementById('travelers');
+let durationForm = document.getElementById('duration');
+let submitForm = document.getElementById('submit')
+//----BUTTONS----
+let dashboard = document.querySelector('.dashboard');
+let newTrips = document.querySelector('.new-trips');
+let logout = document.querySelector('.logout');
 
 //----GLOBAL VARIABLES----
 let travelerData = [];
@@ -37,27 +45,9 @@ let tripsRepo;
 let destinationsArray;
 let destinationRepo;
 let travelersTrips
-
 let date;
 
-
-
-//----EVENT LISTENERS----
-tabs.addEventListener('click', changeTabs)
-
-window.addEventListener('load', () => {
-  allData.then(data => {
-  travelerData = data[0].travelers
-  destinationData = data[1].destinations
-  tripsData = data[2].trips
-  initialSetup(travelerData, destinationData, tripsData)
-  }).catch(error => console.log(error))
-});
-
-
-
 //----DATA FUNCTIONS----
-
 const initialSetup = (travelers, destinations, trips) => {
   dateFunction()
   createTraveler(travelers)
@@ -168,6 +158,14 @@ const getRandomUser = (array) => {
     let randomIndex = Math.floor(Math.random() * array.length)
     return array[randomIndex]
 };
+
+const createOptions = () => {
+  console.log("repo", destinationRepo)
+
+  destinationRepo.destinationData.forEach(destination => {
+    destinationForm.innerHTML += `<option value=${destination.id}>${destination.name}</option>`
+  })
+}
 
 //----DOM FUNCTIONS----
 const displayTravelerInfo = (randomTraveler) => {
@@ -282,3 +280,20 @@ const displayPendingTrips = (pendingTrips) => {
   })
     pendingBox.innerHTML = pendingTripCard
 }
+
+
+
+//----EVENT LISTENERS----
+window.addEventListener('load', () => {
+  allData.then(data => {
+  travelerData = data[0].travelers
+  destinationData = data[1].destinations
+  tripsData = data[2].trips
+  initialSetup(travelerData, destinationData, tripsData)
+  }).catch(error => console.log(error))
+});
+
+tabs.addEventListener('click', changeTabs)
+newTrips.addEventListener('click', createOptions)
+// dashboard.addEventListener('click')
+//logout.addEventListener('click', )
