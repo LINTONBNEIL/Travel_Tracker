@@ -38,7 +38,9 @@ let destinationsArray;
 let destinationRepo;
 let travelersTrips
 
-let date = '2022/05/11';
+let date;
+
+
 
 //----EVENT LISTENERS----
 tabs.addEventListener('click', changeTabs)
@@ -52,13 +54,30 @@ window.addEventListener('load', () => {
   }).catch(error => console.log(error))
 });
 
+
+
 //----DATA FUNCTIONS----
 
 const initialSetup = (travelers, destinations, trips) => {
+  dateFunction()
   createTraveler(travelers)
   createDestinations(destinations)
   createTrips(trips)
 };
+
+const dateFunction = () => {
+    let d = new Date()
+    let year = d.getFullYear().toString()
+    let month = d.getMonth().toString()
+    let day = d.getDate().toString()
+    if (month.length < 2) {
+    month = '0' + month;
+    }
+    if (day.lenght < 2) {
+      day = '0' + day;
+    }
+    date = [year, month, day].join('/')
+}
 
 const createTraveler = (travelerData) => {
 travelerArray = travelerData.map(traveler => new Traveler(traveler));
@@ -94,21 +113,6 @@ const setTripsDestination = () => {
   trip.destination = destinationObj;
   });
 };
-
-//OLD CODE(SAVING JUST IN CASE)
-// const findYearlySpent = (travelersTrips) => {
-//   let yearlySpent = 0;
-//   travelersTrips.forEach(trip => {
-//     if(trip.date.includes('2022')) {
-//       let totalLodging = parseInt((trip.destination.lodgingCost * trip.travelers) * trip.duration)
-//       let totalFlight =  parseInt(trip.destination.flightCost * trip.travelers)
-//       let agentFee = (totalLodging + totalFlight) * .10
-//       yearlySpent += totalLodging + totalFlight + agentFee
-//       displayYearlySpent(yearlySpent)
-//     }
-//     displayYearlySpent(yearlySpent)
-//   })
-// };
 
 const findYearlySpent = (travelersTrips) => {
 let yearlySpent = travelersTrips.reduce((acc, trip) => {
@@ -196,7 +200,7 @@ function changeTabs() {
 }
 
 const displayPastTrips = (pastTrips) => {
-  console.log('past', pastTrips)
+  // console.log('past', pastTrips)
   let pastTripCard = ''
   pastTrips.forEach(trip => {
     pastTripCard += `
@@ -238,7 +242,7 @@ const displayPresentTrips = (presentTrips) => {
 }
 
 const displayUpcomingTrips = (upcomingTrips) => {
-  console.log('upcoming', upcomingTrips)
+  // console.log('upcoming', upcomingTrips)
   let upcomingTripCard = ''
     upcomingTrips.forEach(trip => {
     upcomingTripCard += `
@@ -259,7 +263,7 @@ const displayUpcomingTrips = (upcomingTrips) => {
 }
 
 const displayPendingTrips = (pendingTrips) => {
-  console.log('pending', pendingTrips)
+  // console.log('pending', pendingTrips)
   let pendingTripCard = ''
     pendingTrips.forEach(trip => {
     pendingTripCard += `
