@@ -28,10 +28,10 @@ let tabButton = document.querySelectorAll('.tab-button');
 let contents = document.querySelectorAll('.box');
 //----FORM----
 let destinationForm = document.getElementById('destinationOption');
-let calendarForm = document.getElementById('calendar');
-let travelerForm = document.getElementById('travelers');
-let durationForm = document.getElementById('duration');
-let submitForm = document.getElementById('submit')
+let calendarForm = document.getElementById('calendarValue');
+let travelerForm = document.getElementById('travelersValue');
+let durationForm = document.getElementById('durationValue');
+let submitForm = document.getElementById('submitValue')
 //----BUTTONS----
 let dashboard = document.querySelector('.dashboard');
 let newTrips = document.querySelector('.new-trips');
@@ -94,6 +94,7 @@ const setTripsDestination = () => {
 
 const findYearlySpent = (travelersTrips) => {
 let yearlySpent = travelersTrips.reduce((acc, trip) => {
+  // console.log('tripYear', dayjs(trip.date).year(), 'tripNoYear', dayjs(trip.date), 'dayJsYear', trip.date)
     if(dayjs(trip.date).year() === dayjs().year()) {
       let totalLodging = parseInt((trip.destination.lodgingCost * trip.travelers) * trip.duration)
       let totalFlight =  parseInt((trip.destination.flightCost * trip.travelers) * 2)
@@ -159,23 +160,24 @@ function reloadData(formType) {
     travelerData = data[0].travelers
     destinationData = data[1].destinations
     tripsData = data[2].trips
-    initialSetup();
+    initialSetup(travelerData, destinationData, tripsData)
   }).catch(error => console.log(error))
 };
 
 const submitFormPost = () => {
   event.preventDefault()
-  console.log(randomTraveler.id)
   let tripObj = {
-    id: tripsRepo.tripsData.length,
+    id: tripsRepo.tripsData.length + 1,
     userID: randomTraveler.id,
-    destinationID: destinationForm.value,
-    travelers: travelerForm.value,
+    destinationID: parseInt(destinationForm.value),
+    travelers: parseInt(travelerForm.value),
     date: calendarForm.value.split('-').join('/'),
-    duration: durationForm.value,
-    status: pending,
-    suggestedActivities: []
+    duration: parseInt(durationForm.value),
+    status: 'pending',
+    suggestedActivities: ['fun', 'test']
   }
+
+  console.log(tripObj)
   postUserCall(tripObj, 'trips').then(response => reloadData('trips'))
 }
 

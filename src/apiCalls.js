@@ -6,6 +6,7 @@ let allData = Promise.all([getPromise('travelers'), getPromise('destinations'), 
 
 
 const postUserCall = (postObject, dataType) => {
+  console.log(postObject)
   return fetch(`http://localhost:3001/api/v1/${dataType}`, {
     method: 'POST',
     body: JSON.stringify(postObject),
@@ -14,10 +15,9 @@ const postUserCall = (postObject, dataType) => {
     }
   })
   .then(response => checkForError(response))
-  .then(response => {
-  response.json()
-  allData = Promise.all([getPromise('travelers'), getPromise('destinations'), getPromise('trips')]);
-})
+  .then(response => response.json())
+  // allData = Promise.all([getPromise('travelers'), getPromise('destinations'), getPromise('trips')]);
+
   .catch(error => error)
 };
 
