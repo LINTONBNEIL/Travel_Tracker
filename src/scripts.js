@@ -36,6 +36,9 @@ let submitForm = document.getElementById('submitValue')
 let dashboard = document.querySelector('.dashboard');
 let newTrips = document.querySelector('.new-trips');
 let logout = document.querySelector('.logout');
+//----DASHBOARD----
+let tripsFormPage = document.querySelector('.trips-form');
+
 
 //----GLOBAL VARIABLES----
 let travelerData = [];
@@ -108,7 +111,7 @@ let yearlySpent = travelersTrips.reduce((acc, trip) => {
 
 const findPresentTrips = (travelersTrips) => {
   let presentTrips = travelersTrips.filter(trip => {
-    if (dayjs(trip.date) <= dayjs() && dayjs() < dayjs(trip.date).add(trip.duration, 'day') || dayjs() === dayjs(trip.date) && trip.status !== 'pending') {
+    if (dayjs(trip.date) <= dayjs() && dayjs() <= dayjs(trip.date).add(trip.duration, 'day') && trip.status !== 'pending') {
     return trip
   }
   })
@@ -151,6 +154,7 @@ const createOptions = () => {
   destinationRepo.destinationData.forEach(destination => {
     destinationForm.innerHTML += `<option value=${destination.id}>${destination.name}</option>`
   })
+  showSubmitForm()
 }
 
 // ----POST----
@@ -173,13 +177,24 @@ const submitFormPost = () => {
     date: calendarForm.value.split('-').join('/'),
     duration: parseInt(durationForm.value),
     status: 'pending',
-    suggestedActivities: ['fun', 'test']
+    suggestedActivities: []
   }
 
   postUserCall(tripObj, 'trips').then(response => reloadData('trips'))
 }
 
 //----DOM FUNCTIONS----
+//----CHANGE VIEWS----
+const showSubmitForm = () => {
+  tabs.classList.add('hidden')
+  tripsFormPage.classList.remove('hidden')
+}
+
+const showMainPage = () => {
+  tabs.classList.remove('hidden')
+  tripsFormPage.classList.add('hidden')
+}
+
 const displayTravelerInfo = (randomTraveler) => {
   travelerName.innerHTML = `Welcome, ${randomTraveler.name}`
 };
@@ -308,5 +323,5 @@ window.addEventListener('load', () => {
 tabs.addEventListener('click', changeTabs)
 newTrips.addEventListener('click', createOptions)
 submitForm.addEventListener('click', submitFormPost)
-// dashboard.addEventListener('click')
+dashboard.addEventListener('click', showMainPage)
 //logout.addEventListener('click', )

@@ -1,5 +1,5 @@
 * {
-  border: 2px solid red;
+
 }
 
 body, html {
@@ -13,6 +13,7 @@ main {
   height: 100vh;
   width: 100vw;
   display: flex;
+  background: linear-gradient(to top, #ef32d9, #89fffd);
   justify-content: flex-start;
 }
  /* NAV START */
@@ -23,17 +24,53 @@ nav {
   flex-direction: column;
 }
 
+.title {
+  height: 23%;
+  font-size: 40px;
+  margin: 0;
+  background: white;
+  border-bottom-right-radius: 25px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
 .button-wrapper {
   height: inherit;
   width: inherit;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
+
 
 button {
   height: 10vh;
   width: 10vw;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+button.active {
+  background-color: rgba(255, 255, 255, 1);
 }
 /* NAV END */
 /* WRAPPER */
@@ -50,6 +87,10 @@ button {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
 }
 
 .tabs-container {
@@ -65,34 +106,47 @@ button {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
 }
 
 .box {
   height: 100%;
   width: 100%;
   display: none;
-  justify-content: space-around;
-  align-items: center;
-  overflow-x: scroll;
+  grid-template-columns: repeat(2, 50%);
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  /* justify-content: space-around;
+  align-items: center; */
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
+
 .box.active {
-  display: flex;
+  display: grid;
 }
 /* USER CARD */
 .traveler-card {
-  height: 65%;
-  width: 14%;
+  height: inherit;
+  width: inherit;
   color: black;
   background-color: pink;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
 }
 
 .picture {
   height: 30%;
-  width: inherit%;
+  width: 100%;
 }
 
 ul {
@@ -100,7 +154,8 @@ ul {
   margin: 0;
   padding-left: 0px
 }
-/* USER CARD */
+/* USER CARD END */
+
 /* FORM */
 .trips-form {
   height: 100%;
@@ -112,12 +167,18 @@ ul {
 }
 
 form {
-  height: 100%;
+  height: 50%;
   width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
 }
 
 .form {
@@ -129,6 +190,15 @@ form {
   align-items: center;
 }
 
+input, select, .traveler-card {
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+}
+/* FORM END */
 /* WRAPPER END */
 .hidden {
   display: none!important;
