@@ -91,7 +91,7 @@ const setTripsDestination = () => {
   trip.destination = destinationObj;
   });
 };
-
+//FIND YEARLY NEEDS TO BE MORE DYNAMIC
 const findYearlySpent = (travelersTrips) => {
 let yearlySpent = travelersTrips.reduce((acc, trip) => {
     if(dayjs(trip.date).year() === dayjs().year()) {
@@ -108,7 +108,7 @@ let yearlySpent = travelersTrips.reduce((acc, trip) => {
 
 const findPresentTrips = (travelersTrips) => {
   let presentTrips = travelersTrips.filter(trip => {
-    if (dayjs(trip.date) === dayjs() && trip.status !== 'pending') {
+    if (dayjs(trip.date) <= dayjs() && dayjs() < dayjs(trip.date).add(trip.duration, 'day') || dayjs() === dayjs(trip.date) && trip.status !== 'pending') {
     return trip
   }
   })
@@ -237,7 +237,7 @@ const displayPresentTrips = (presentTrips) => {
       presentTripCard += `
       <article class="traveler-card">
       <h2>${trip.destination.name}</h2>
-      <image class="picture" src=${presentTrip.destination.image}></image>
+      <image class="picture" src=${trip.destination.image}></image>
         <ul>
           <li>Lodging Cost: ${trip.destination.lodgingCost}</li>
           <li>Flight Cost: ${trip.destination.flightCost}</li>
