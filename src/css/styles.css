@@ -232,7 +232,3 @@ input, select, .traveler-card {
 .hidden {
   display: none!important;
 }
-
-.login-hide {
- display: none;
-}
