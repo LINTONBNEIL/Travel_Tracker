@@ -28,6 +28,8 @@ let tabs = document.querySelector('.tabs-container');
 let tabButton = document.querySelectorAll('.tab-button');
 let contents = document.querySelectorAll('.box');
 //----FORM----
+let totalSum  = document.querySelector('.totalSum')
+let postForm = document.querySelector('.form-two-wrapper')
 let destinationForm = document.getElementById('destinationOption');
 let calendarForm = document.getElementById('calendarValue');
 let travelerForm = document.getElementById('travelersValue');
@@ -70,7 +72,6 @@ const initialSetup = (travelers, destinations, trips) => {
 const createTraveler = (travelerData) => {
 travelerArray = travelerData.map(traveler => new Traveler(traveler));
 travelerRepo = new TravelerRepository(travelerArray)
-// randomTraveler = getRandomUser(travelerRepo.travelerData)
 displayTravelerInfo(randomTraveler)
 };
 
@@ -165,7 +166,22 @@ const createOptions = () => {
 }
 
 //----POST----
-function reloadData(formType) {
+const calculatePostSum = () => {
+  let totalPostSum = destinationData.reduce((acc, destination) => {
+    if (parseInt(destinationForm.value) === destination.id) {
+      let totalFormLodging = parseInt((destination.estimatedLodgingCostPerDay * travelerForm.value) * durationForm.value)
+      let totalFormFlight =  parseInt((destination.estimatedFlightCostPerPerson * travelerForm.value) * 2)
+      let agentFormFee = (totalFormLodging + totalFormFlight) * .10
+      acc += totalFormLodging + totalFormFlight + agentFormFee
+
+    }
+    return acc
+  }, 0)
+
+  totalSum.innerHTML = `$${totalPostSum} dollars for Trip!`
+}
+
+const reloadData = (formType) => {
   allData().then(data => {
     travelerData = data[0].travelers
     destinationData = data[1].destinations
@@ -214,7 +230,7 @@ const displayYearlySpent = (yearlySpent) => {
   }
 };
 
-function changeTabs() {
+const changeTabs = () => {
   let id = event.target.dataset.id;
   if (id) {
     tabButton.forEach(btn => {
@@ -325,6 +341,7 @@ const displayMainPage = () => {
   mainPage.classList.remove('hidden')
 };
 
+//----CHECKLOGIN----
 const checkLogin = () => {
  if (password.value === 'travel') {
    event.preventDefault();
@@ -355,3 +372,4 @@ submitForm.addEventListener('click', submitFormPost)
 dashboard.addEventListener('click', showMainPage)
 submitLogin.addEventListener('click', checkLogin)
 logout.addEventListener('click', displayLoginPage)
+postForm.addEventListener('click', calculatePostSum)
