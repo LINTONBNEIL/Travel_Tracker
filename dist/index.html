@@ -7,7 +7,28 @@
   <title>Travel Tracker</title>
 </head>
 <body>
-  <main>
+  <section class="loginPage">
+    <form class="login-form" method="fetch">
+      <ul class="login-ul">
+        <li>
+          <label>UserName:
+          <input type="text" placeholder="Enter Username" name="username" id="username" required>
+          <label>
+        </li>
+        <li>
+          <label>Password:
+            <input type="password" placeholder="Enter Password" name="password" id="password" required>
+          <label>
+        </li>
+        <li>
+          <label for="submitLogin">
+            <input type="submit" name="submitLogin" id="submitLogin">
+          </label>
+        </li>
+      </ul>
+    </form>
+  </section>
+  <main class="mainPage hidden">
     <nav>
       <h2 class='title'>Travel Tracker</h2>
       <div class="button-wrapper">
@@ -23,26 +44,29 @@
       </div>
       <!-- LINEBREAK FORM -->
     <section class="trips-form hidden">
-      <form method="post">
-        <ul class="form">
+      <form class="form-two-wrapper" method="post">
+        <ul class="form-two-ul">
+          <li>
+            <h2 class='totalSum'>Trip Total..</h2>
+          </li>
           <li>
             <label for="destination" id="destination">Destination:
-              <select name="destination" id="destinationOption"></select>
+              <select name="destination" id="destinationOption" required></select>
             </label>
           </li>
           <li>
             <label for="calendar" id="calendar">Select Date:
-              <input type="date" name="calendar" id="calendarValue">
+              <input type="date" name="calendar" id="calendarValue" required>
             </label>
           </li>
           <li>
             <label for="travelers" id="travelers">Travelers:
-              <input type="number" name="travelers" id="travelersValue">
+              <input type="number" name="travelers" id="travelersValue" required>
             </label>
           </li>
           <li>
             <label for="duration" id="duration">Duration:
-              <input type="number" name="duration" id="durationValue">
+              <input type="number" name="duration" id="durationValue" required>
             </label>
           </li>
           <li>
