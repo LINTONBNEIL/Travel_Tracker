@@ -6,6 +6,7 @@ import './css/styles.css';
 import {
   allData,
   postUserCall,
+  getPromise,
   checkForError
 } from './apiCalls.js'
 import Destination from '../src/Destination.js'
@@ -38,6 +39,12 @@ let newTrips = document.querySelector('.new-trips');
 let logout = document.querySelector('.logout');
 //----DASHBOARD----
 let tripsFormPage = document.querySelector('.trips-form');
+//----LOGIN----
+let loginPage = document.querySelector('.loginPage');
+let mainPage = document.querySelector('.mainPage');
+let username = document.getElementById('username');
+let password = document.getElementById('password');
+let submitLogin = document.getElementById('submitLogin');
 
 
 //----GLOBAL VARIABLES----
@@ -63,7 +70,7 @@ const initialSetup = (travelers, destinations, trips) => {
 const createTraveler = (travelerData) => {
 travelerArray = travelerData.map(traveler => new Traveler(traveler));
 travelerRepo = new TravelerRepository(travelerArray)
-randomTraveler = getRandomUser(travelerRepo.travelerData)
+// randomTraveler = getRandomUser(travelerRepo.travelerData)
 displayTravelerInfo(randomTraveler)
 };
 
@@ -157,7 +164,7 @@ const createOptions = () => {
   showSubmitForm()
 }
 
-// ----POST----
+//----POST----
 function reloadData(formType) {
   allData().then(data => {
     travelerData = data[0].travelers
@@ -308,20 +315,43 @@ const displayPendingTrips = (pendingTrips) => {
     pendingBox.innerHTML = pendingTripCard
 }
 
+const displayLoginPage = () => {
+  loginPage.classList.remove('hidden');
+  mainPage.classList.add('hidden')
+}
 
+const displayMainPage = () => {
+  loginPage.classList.add('hidden');
+  mainPage.classList.remove('hidden')
+};
 
-//----EVENT LISTENERS----
-window.addEventListener('load', () => {
+const checkLogin = () => {
+ if (password.value === 'travel') {
+   event.preventDefault();
+   let userID = parseInt(username.value.split('traveler')[1]);
+   fetchCorrectUser(userID)
+ }
+}
+
+const fetchCorrectUser = (userID) => {
+  let user = getPromise(`travelers/${userID}`);
+  user.then(data => {
+    randomTraveler = data;
+  });
   allData().then(data => {
   travelerData = data[0].travelers
   destinationData = data[1].destinations
   tripsData = data[2].trips
   initialSetup(travelerData, destinationData, tripsData)
   }).catch(error => console.log(error))
-});
+  displayMainPage();
+}
 
+
+//----EVENT LISTENERS----
 tabs.addEventListener('click', changeTabs)
 newTrips.addEventListener('click', createOptions)
 submitForm.addEventListener('click', submitFormPost)
 dashboard.addEventListener('click', showMainPage)
-//logout.addEventListener('click', )
+submitLogin.addEventListener('click', checkLogin)
+logout.addEventListener('click', displayLoginPage)

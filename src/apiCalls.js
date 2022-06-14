@@ -9,7 +9,6 @@ const allData = () => {
 
 
 const postUserCall = (postObject, dataType) => {
-  console.log(postObject)
   return fetch(`http://localhost:3001/api/v1/${dataType}`, {
     method: 'POST',
     body: JSON.stringify(postObject),
@@ -33,5 +32,6 @@ const checkForError = (response) => {
 export {
   allData,
   postUserCall,
+  getPromise,
   checkForError
 }
