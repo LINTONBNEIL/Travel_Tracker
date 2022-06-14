@@ -47,6 +47,7 @@ let mainPage = document.querySelector('.mainPage');
 let username = document.getElementById('username');
 let password = document.getElementById('password');
 let submitLogin = document.getElementById('submitLogin');
+let loginForm = document.querySelector('.login-form')
 
 
 //----GLOBAL VARIABLES----
@@ -216,6 +217,7 @@ const showSubmitForm = () => {
 const showMainPage = () => {
   tabs.classList.remove('hidden')
   tripsFormPage.classList.add('hidden')
+  postForm.reset()
 }
 
 const displayTravelerInfo = (randomTraveler) => {
@@ -248,8 +250,9 @@ const changeTabs = () => {
 }
 
 const displayPastTrips = (pastTrips) => {
-  console.log('past', pastTrips)
+  console.log('past', pastTrips.length)
   let pastTripCard = ''
+  if (pastTrips.length > 0) {
   pastTrips.forEach(trip => {
     pastTripCard += `
     <article class="traveler-card">
@@ -266,11 +269,15 @@ const displayPastTrips = (pastTrips) => {
     `
   })
   pastBox.innerHTML = pastTripCard
+} else {
+  pastBox.innerHTML = `<article class="traveler-card"><h2>No Past Trips</h2></article>`
+}
 }
 
 const displayPresentTrips = (presentTrips) => {
   console.log('present', presentTrips)
     let presentTripCard = ''
+    if (presentTrips.length > 0) {
     presentTrips.forEach(trip => {
       presentTripCard += `
       <article class="traveler-card">
@@ -287,11 +294,15 @@ const displayPresentTrips = (presentTrips) => {
       `
     })
   presentBox.innerHTML = presentTripCard
+} else {
+  presentBox.innerHTML = `<article class="traveler-card"><h2>No Present Trips</h2></article>`
+}
 }
 
 const displayUpcomingTrips = (upcomingTrips) => {
   console.log('upcoming', upcomingTrips)
   let upcomingTripCard = ''
+  if (upcomingTrips.length > 0) {
     upcomingTrips.forEach(trip => {
     upcomingTripCard += `
     <article class="traveler-card">
@@ -308,11 +319,15 @@ const displayUpcomingTrips = (upcomingTrips) => {
     `
   })
     upcomingBox.innerHTML = upcomingTripCard
+  } else {
+  upcomingBox.innerHTML = `<article class="traveler-card"><h2>No Upcoming Trips</h2></article>`
+  }
 }
 
 const displayPendingTrips = (pendingTrips) => {
   console.log('pending', pendingTrips)
   let pendingTripCard = ''
+  if (pendingTrips.length > 0) {
     pendingTrips.forEach(trip => {
     pendingTripCard += `
     <article class="traveler-card">
@@ -329,16 +344,22 @@ const displayPendingTrips = (pendingTrips) => {
     `
   })
     pendingBox.innerHTML = pendingTripCard
+  } else {
+    pendingBox.innerHTML = `<article class="traveler-card"><h2>No Pending Trips</h2></article>`
+  }
 }
 
+
+//----TOGGLE LOGIN----
 const displayLoginPage = () => {
   loginPage.classList.remove('hidden');
-  mainPage.classList.add('hidden')
+  mainPage.classList.add('hidden');
+  loginForm.reset()
 }
 
 const displayMainPage = () => {
   loginPage.classList.add('hidden');
-  mainPage.classList.remove('hidden')
+  mainPage.classList.remove('hidden');
 };
 
 //----CHECKLOGIN----
